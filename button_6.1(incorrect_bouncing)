@@ -1,0 +1,28 @@
+/* INCORRECT Button 6.1
+* Inverts the LED state 
+* whenever the button is pressed
+de-bounce function not included */
+
+#define LED_PIN 13
+#define BUTTON_PIN 12
+
+boolean buttonState;
+boolean buttonPrevState;
+boolean ledState;
+
+void setup(){
+	pinMode(LED_PIN, OUTPUT);
+	pinMode(BUTTON_PIN, INPUT_PULLUP);
+}
+
+void loop(){
+	buttonState = digitalRead(BUTTON_PIN); // read and save the button state
+
+	if( (buttonPrevState == HIGH) && (buttonState == LOW)){
+		// prev state OFF, current state ON (NC button)
+	ledState = !ledState; //invert the LED state
+	digitalWrite(LED_PIN, ledState); //write the led state from variable to the pin		
+	}
+
+	buttonPrevState = buttonState; // update the button state
+}
